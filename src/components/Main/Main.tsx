@@ -1,23 +1,27 @@
 import React from "react";
-import "./Main.css";
 import { NewsItem } from "../NewsItem/NewsItem";
 import { LoadingSkeleton } from "../Skeleton/LoadingSkeleton";
 import { useTypedSelector } from "../../store";
-
+import { ItemProps } from "../../interfaces/Item";
+import "./Main.css";
 export const Main: React.FC = () => {
   const State = useTypedSelector((state) => state.Posts);
   return (
     <main>
       {State.Posts.length > 0 ? (
-        State.Posts.map((item: any, index: number) => {
-          return <NewsItem item={item} arrcount={index}></NewsItem>;
-        })
+        State.Posts.map(
+          (item: { NewsFor: string; Posts: ItemProps[] }, index: number) => {
+            return (
+              <NewsItem item={item} arrcount={index} key={index}></NewsItem>
+            );
+          }
+        )
       ) : (
         <>
           {Array(4)
             .fill(0)
-            .map((item) => {
-              return <LoadingSkeleton></LoadingSkeleton>;
+            .map((item, index) => {
+              return <LoadingSkeleton key={index}></LoadingSkeleton>;
             })}
         </>
       )}

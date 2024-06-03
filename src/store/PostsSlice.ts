@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import SortingAndSetScturctureArr from "../utils/SortingArr";
 // interface InitialState {
 //   Posts: { created_date: string,text:string }[];
 //   Loading: boolean;
@@ -27,30 +28,7 @@ const GetPostsSlice = createSlice({
         state.Loading = false;
 
         state.Posts = action.payload.results;
-        state.Posts.sort((a, b) => {
-          return (
-            new Date(b.created_date).getTime() -
-            new Date(a.created_date).getTime()
-          );
-        });
-        let arr = [];
-        for (let k of state.Posts) {
-          if (!arr.includes(new Date(k.created_date).toLocaleDateString())) {
-            arr.push(new Date(k.created_date).toLocaleDateString());
-          }
-        }
-        let newarr = arr.map((item) => {
-          return { NewsFor: item, Posts: [] };
-        });
-
-        for (let k of state.Posts) {
-          for (let z of newarr) {
-            if (new Date(k.created_date).toLocaleDateString() == z.NewsFor) {
-              z.Posts.push(k);
-            }
-          }
-        }
-        state.Posts = newarr;
+        SortingAndSetScturctureArr(state);
       })
       .addCase(GetPostsThunk.rejected, (state) => {
         state.Loading = false;

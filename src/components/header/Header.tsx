@@ -21,7 +21,7 @@ export const Header: React.FC = ({}) => {
           alt="menu"
         ></img>
       </button>
-      <h1 className="title">BESIDER</h1>
+      <h1 className="header_title">BESIDER</h1>
     </header>
   );
 };

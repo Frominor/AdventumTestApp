@@ -14,7 +14,6 @@ interface SideBarProps {
   SetIsOpen: (arg: boolean) => void;
 }
 export const SideBar: React.FC<SideBarProps> = ({ SetIsOpen }) => {
-  React.useEffect(() => {}, []);
   return (
     <div className="sidebar">
       <div className="close_box">

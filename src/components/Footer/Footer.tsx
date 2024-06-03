@@ -5,7 +5,6 @@ import { useTypedSelector } from "../../store";
 import "./Footer.css";
 
 export const Footer: React.FC = ({}) => {
-  const State = useTypedSelector((state) => state.Posts);
   const [IsLoading, SetisLoading] = React.useState<boolean>(false);
   const { ref, inView } = useInView({
     threshold: 0.8,
