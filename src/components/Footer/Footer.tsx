@@ -10,21 +10,16 @@ import { LazyLoading } from "../../store/PostsSlice";
 import "./Footer.css";
 
 export const Footer: React.FC = ({}) => {
-  // console.log(
-  //   new Date("2024-06-03T13:41:50-04:00").toLocaleDateString("en-us", {
-  //     month: "long",
-  //   })
-  // );
-  // const dateObj = new Date("2024-06-03T13:41:50-04:00");
-  // const month = dateObj.getUTCMonth() + 1; // months from 1-12
-  // const day = dateObj.getUTCDate();
-  // const year = dateObj.getUTCFullYear();
-
-  // const newDate = year + "/" + month + "/" + day;
-
-  // console.log(newDate);
-  // console.log(new Date("2024-06-03T13:41:50-04:00").getUTCDay());
-  // console.log(new Date("2024-06-03T13:41:50-04:00").getUTCFullYear());
+  let month = new Date("2024-06-03T13:41:50-04:00").toLocaleDateString(
+    "en-us",
+    {
+      month: "long",
+    }
+  );
+  let hours = new Date("2024-06-03T13:41:50-04:00").getUTCHours();
+  let minutes = new Date("2024-06-03T13:41:50-04:00").getUTCMinutes();
+  let day = new Date("2024-06-03T13:41:50-04:00").getUTCDay();
+  let year = new Date("2024-06-03T13:41:50-04:00").getUTCFullYear();
   const [IsLoading, SetisLoading] = React.useState<boolean>(false);
   const State = useTypedSelector((state) => state.Posts);
   console.log(State);

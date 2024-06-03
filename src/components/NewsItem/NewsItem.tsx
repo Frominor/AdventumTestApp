@@ -34,7 +34,24 @@ export const NewsItem: React.FC<NewsItemProps> = ({ item, arrcount }) => {
               <div>
                 <h4 className="CNN">CNN</h4>
                 <p className="NewsItem_main_desciption">{item?.abstract}</p>
-                <span className="NewsPostedDate">{item?.created_at}</span>
+                <span className="NewsPostedDate">
+                  {new Date(item.published_date).toLocaleDateString("en-us", {
+                    month: "long",
+                  }) +
+                    " " +
+                    new Date(item.published_date).getUTCDay() +
+                    ", " +
+                    new Date(item.published_date).getUTCFullYear() +
+                    ", " +
+                    new Date(item.published_date).getUTCHours() +
+                    "."}
+                  {new Date(item.published_date).getUTCMinutes() < 10
+                    ? "0" + new Date(item.published_date).getUTCMinutes()
+                    : new Date(item.published_date).getUTCMinutes()}
+                  {new Date(item.published_date).getUTCHours() > 12
+                    ? "AM"
+                    : "PM"}
+                </span>
               </div>
             </div>
           </a>
