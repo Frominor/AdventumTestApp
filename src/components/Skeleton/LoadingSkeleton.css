@@ -1,0 +1,22 @@
+.skeleton {
+  animation: skeleton-loading 1.5s linear infinite alternate;
+  margin: 10px;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+.Skeleton_main {
+  display: flex;
+  column-gap: 12px;
+  padding: 20px;
+}
+.SkeletonDescription {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
