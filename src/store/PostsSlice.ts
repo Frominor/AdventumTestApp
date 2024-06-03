@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { current } from "@reduxjs/toolkit";
 import SortingAndSetScturctureArr from "../utils/SortingArr";
 // interface InitialState {
 //   Posts: { created_date: string,text:string }[];
@@ -7,6 +8,7 @@ import SortingAndSetScturctureArr from "../utils/SortingArr";
 // }
 const initialState = {
   Posts: [],
+  RenderPosts: [],
   Loading: false,
 };
 export const GetPostsThunk = createAsyncThunk("Posts/GetPosts", async () => {
@@ -18,7 +20,11 @@ export const GetPostsThunk = createAsyncThunk("Posts/GetPosts", async () => {
 const GetPostsSlice = createSlice({
   name: "Posts",
   initialState,
-  reducers: {},
+  reducers: {
+    LazyLoading: (state, action) => {
+      state.RenderPosts = [...state.RenderPosts, state.Posts[action.payload]];
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(GetPostsThunk.pending, (state) => {
@@ -29,6 +35,7 @@ const GetPostsSlice = createSlice({
 
         state.Posts = action.payload.results;
         SortingAndSetScturctureArr(state);
+        state.RenderPosts = [state.Posts[0]];
       })
       .addCase(GetPostsThunk.rejected, (state) => {
         state.Loading = false;
@@ -36,3 +43,4 @@ const GetPostsSlice = createSlice({
   },
 });
 export const GetPostsSliceReducer = GetPostsSlice.reducer;
+export const { LazyLoading } = GetPostsSlice.actions;
