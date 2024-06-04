@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
   const [Count, SetCount] = React.useState(1);
   const dispatch = useAppDispatch();
   const { ref, inView } = useInView({
-    threshold: 0.6,
+    threshold: 0.9,
   });
 
   React.useEffect(() => {
