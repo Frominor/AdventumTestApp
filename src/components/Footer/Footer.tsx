@@ -5,44 +5,35 @@ import { useInView } from "react-intersection-observer";
 import { Loader } from "../Loader/Loader";
 
 import { useAppDispatch, useTypedSelector } from "../../store";
-import { LazyLoading } from "../../store/PostsSlice";
+import { LazyLoading, SetLoading } from "../../store/PostsSlice";
 
 import "./Footer.css";
 
-export const Footer: React.FC = ({}) => {
-  let month = new Date("2024-06-03T13:41:50-04:00").toLocaleDateString(
-    "en-us",
-    {
-      month: "long",
-    }
-  );
-  let hours = new Date("2024-06-03T13:41:50-04:00").getUTCHours();
-  let minutes = new Date("2024-06-03T13:41:50-04:00").getUTCMinutes();
-  let day = new Date("2024-06-03T13:41:50-04:00").getUTCDay();
-  let year = new Date("2024-06-03T13:41:50-04:00").getUTCFullYear();
-  const [IsLoading, SetisLoading] = React.useState<boolean>(false);
+export const Footer: React.FC = () => {
   const State = useTypedSelector((state) => state.Posts);
-  console.log(State);
   const [Count, SetCount] = React.useState(1);
   const dispatch = useAppDispatch();
   const { ref, inView } = useInView({
-    threshold: 0.8,
+    threshold: 0.6,
   });
+
   React.useEffect(() => {
-    dispatch(LazyLoading({ Count }));
+    dispatch(LazyLoading(Count));
   }, []);
   React.useEffect(() => {
     if (inView) {
       if (State.Posts.length !== Count) {
         SetCount((prev) => prev + 1);
         dispatch(LazyLoading(Count));
-        SetisLoading(true);
+        dispatch(SetLoading(true));
+      } else {
+        dispatch(SetLoading(false));
       }
     }
   }, [inView]);
   return (
     <footer ref={ref}>
-      {IsLoading && <Loader></Loader>}
+      {State.Loading && <Loader></Loader>}
 
       <ul className="footer_menu">
         <li>Login</li>

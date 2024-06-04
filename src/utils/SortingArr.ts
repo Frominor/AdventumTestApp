@@ -1,16 +1,19 @@
-export default function SortingAndSetScturctureArr(state) {
-  state.Posts.sort((a, b) => {
+import { ItemProps } from "../interfaces/Item";
+export default function SortingAndSetScturctureArr(
+  state: { Posts: ItemProps[] } | any //не знал,как типизировать :(
+) {
+  state.Posts.sort((a: ItemProps, b: ItemProps) => {
     return (
       new Date(b.created_date).getTime() - new Date(a.created_date).getTime()
     );
   });
-  let arr = [];
+  let arr: string[] = [];
   for (let k of state.Posts) {
     if (!arr.includes(new Date(k.created_date).toLocaleDateString())) {
       arr.push(new Date(k.created_date).toLocaleDateString());
     }
   }
-  let newarr = arr.map((item) => {
+  let newarr: { NewsFor: {}; Posts: {}[] }[] = arr.map((item) => {
     return { NewsFor: item, Posts: [] };
   });
 

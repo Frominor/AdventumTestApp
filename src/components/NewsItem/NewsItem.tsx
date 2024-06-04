@@ -1,8 +1,8 @@
 import React from "react";
-import "./NewsItem.css";
 import { useTypedSelector } from "../../store";
 import { ItemProps } from "../../interfaces/Item";
 
+import "./NewsItem.css";
 interface NewsItemProps {
   item: { NewsFor: string; Posts: ItemProps[] };
   arrcount: number;

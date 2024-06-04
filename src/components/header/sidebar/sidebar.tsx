@@ -1,5 +1,7 @@
 import React from "react";
+
 import closeImg from "../../../images/Vector.png";
+
 import "./sidebar.css";
 const NavLinks = [
   "SCIENCE",

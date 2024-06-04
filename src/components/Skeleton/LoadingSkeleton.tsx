@@ -1,28 +1,54 @@
 import React from "react";
 import "./LoadingSkeleton.css";
-export const LoadingSkeleton: React.FC = ({}) => {
+interface LoadingSkeletonProps {
+  Rows: number;
+  BlocksWidthAndHeight: { width: number; height: number }[];
+}
+export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
+  Rows,
+  BlocksWidthAndHeight,
+}) => {
+  const ArrForRenderSkeletonRows = Array(Rows).fill(0);
   return (
     <div className="LoadingSkeleton">
-      <h2
-        className="SkeletonText skeleton"
-        style={{ width: 170, height: 26 }}
-      ></h2>
-      <div className="Skeleton_main">
-        <div
-          className="SkeletonImg skeleton"
-          style={{ width: 100, height: 75 }}
-        ></div>
-        <div>
-          <p
-            className="SkeletonDescription skeleton"
-            style={{ width: 210, height: 110 }}
-          ></p>
-          <p
-            className="SkeletonText skeleton"
-            style={{ width: 150, height: 17 }}
-          ></p>
-        </div>
-      </div>
+      {ArrForRenderSkeletonRows.map((item, index) => {
+        return (
+          <>
+            <h2
+              className="SkeletonText skeleton"
+              style={{
+                width: BlocksWidthAndHeight[index].width + "px",
+                height: BlocksWidthAndHeight[index].height + "px",
+              }}
+            ></h2>
+            <div className="Skeleton_main">
+              <div
+                className="SkeletonImg skeleton"
+                style={{
+                  width: BlocksWidthAndHeight[index + 1].width + "px",
+                  height: BlocksWidthAndHeight[index + 1].height + "px",
+                }}
+              ></div>
+              <div>
+                <p
+                  className="SkeletonDescription skeleton"
+                  style={{
+                    width: BlocksWidthAndHeight[index + 2].width + "px",
+                    height: BlocksWidthAndHeight[index + 2].height + "px",
+                  }}
+                ></p>
+                <p
+                  className="SkeletonText skeleton"
+                  style={{
+                    width: BlocksWidthAndHeight[index + 3].width + "px",
+                    height: BlocksWidthAndHeight[index + 3].height + "px",
+                  }}
+                ></p>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 };

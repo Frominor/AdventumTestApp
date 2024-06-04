@@ -1,12 +1,13 @@
 import React from "react";
 
+import { Header } from "./components/header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
-import { Header } from "./components/header/Header";
 
 import { useAppDispatch } from "./store";
 
-import { GetPostsThunk } from "./store/PostsSlice";
+import { GetPostsThunk, SetLoading } from "./store/PostsSlice";
+
 import "./styles/App.css";
 function App() {
   const dispatch = useAppDispatch();
@@ -16,7 +17,8 @@ function App() {
   React.useEffect(() => {
     setInterval(() => {
       dispatch(GetPostsThunk());
-    }, 30000);
+      dispatch(SetLoading(true));
+    }, 10000);
   }, []);
   return (
     <div className="App">
